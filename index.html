@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAJIMAL ALTAMIRANO - Inicio de Sesión</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: clamp(82px, 10vh, 100px) clamp(16px, 4vw, 45px) clamp(16px, 4vw, 45px);
+      min-height: 100dvh;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+      background: linear-gradient(135deg, #ffffff 0%, #f5fbff 50%, #fff7f9 100%);
+      color: #111;
+    }
+
+    .halo-bg {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      background: linear-gradient(135deg, #ffffff 0%, #f5fbff 50%, #fff7f9 100%);
+      pointer-events: none;
+    }
+
+    .rings {
+      position: absolute;
+      width: max(1900px, 230vmax);
+      height: max(1900px, 230vmax);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      transform-origin: center;
+    }
+
+    .rings-blue {
+      background:
+        repeating-radial-gradient(
+          circle at center,
+          rgba(0, 195, 255, 0.24) 0px,
+          rgba(0, 195, 255, 0.17) 14px,
+          rgba(0, 195, 255, 0.06) 28px,
+          transparent 28px,
+          transparent 185px
+        );
+      animation: ondasAzules 15s ease-in-out infinite alternate;
+      opacity: 1;
+    }
+
+    .rings-red {
+      background:
+        repeating-radial-gradient(
+          circle at center,
+          rgba(255, 75, 92, 0.20) 0px,
+          rgba(255, 75, 92, 0.13) 14px,
+          rgba(255, 75, 92, 0.05) 30px,
+          transparent 30px,
+          transparent 245px
+        );
+      animation: ondasRojas 19s ease-in-out infinite alternate;
+      opacity: 0.95;
+    }
+
+    .center-wave {
+      position: absolute;
+      width: clamp(650px, 95vw, 1300px);
+      height: clamp(650px, 95vw, 1300px);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle,
+          rgba(0, 195, 255, 0.13) 0%,
+          rgba(0, 195, 255, 0.07) 18%,
+          rgba(255, 75, 92, 0.09) 32%,
+          transparent 58%);
+      filter: blur(8px);
+      animation: pulsoCentro 7s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(clamp(45px, 6vw, 90px));
+      opacity: 1;
+    }
+
+    .glow-blue {
+      width: clamp(420px, 55vw, 900px);
+      height: clamp(420px, 55vw, 900px);
+      left: clamp(-240px, -10vw, -80px);
+      top: clamp(-80px, 2vw, 40px);
+      background: radial-gradient(circle, rgba(0, 195, 255, 0.27), transparent 65%);
+      animation: flotarAzul 10s ease-in-out infinite alternate;
+    }
+
+    .glow-red {
+      width: clamp(420px, 55vw, 900px);
+      height: clamp(420px, 55vw, 900px);
+      right: clamp(-240px, -10vw, -80px);
+      bottom: clamp(-180px, -5vw, -60px);
+      background: radial-gradient(circle, rgba(255, 75, 92, 0.23), transparent 65%);
+      animation: flotarRojo 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes ondasAzules {
+      0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.07) rotate(1deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.14) rotate(-1deg);
+      }
+    }
+
+    @keyframes ondasRojas {
+      0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.05) rotate(-1deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.12) rotate(1deg);
+      }
+    }
+
+    @keyframes pulsoCentro {
+      0% {
+        transform: translate(-50%, -50%) scale(0.95);
+        opacity: 0.75;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1.12);
+        opacity: 0.82;
+      }
+    }
+
+    @keyframes flotarAzul {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      100% {
+        transform: translate(70px, 35px) scale(1.14);
+      }
+    }
+
+    @keyframes flotarRojo {
+      0% {
+        transform: translate(0px, 0px) scale(1);
+      }
+      100% {
+        transform: translate(-60px, -35px) scale(1.12);
+      }
+    }
+
+    .navbar {
+      position: fixed;
+      top: 16px;
+      right: 0;
+      width: min(92%, 430px);
+      min-height: 42px;
+      padding: 6px;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      border-radius: 16px 0 0 16px;
+      border: 1px solid rgba(0, 195, 255, 0.25);
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(8px);
+    }
+
+    .navbar a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      padding: 8px 6px;
+      border-radius: 11px;
+      color: #333;
+      font-size: clamp(0.62rem, 1.2vw, 0.76rem);
+      font-weight: 600;
+      border: 1px solid rgba(0, 195, 255, 0.16);
+      background: rgba(255, 255, 255, 0.55);
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .navbar a:hover {
+      color: #ffffff;
+      background: linear-gradient(90deg, rgba(0, 195, 255, 0.85), rgba(255, 75, 92, 0.85));
+      transform: translateY(-1px);
+      box-shadow: 0 0 10px rgba(0, 195, 255, 0.22);
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 400px);
+      padding: clamp(28px, 5vw, 42px) clamp(22px, 4vw, 36px);
+      text-align: center;
+      border-radius: clamp(18px, 4vw, 24px);
+      border: 2px solid transparent;
+      background:
+        linear-gradient(rgba(255,255,255,0.96), rgba(255,255,255,0.96)) padding-box,
+        linear-gradient(135deg, #00c3ff, #ff4b5c) border-box;
+      box-shadow:
+        0 0 35px rgba(0, 195, 255, 0.25),
+        0 0 45px rgba(255, 75, 92, 0.18),
+        0 12px 38px rgba(0, 0, 0, 0.10);
+      backdrop-filter: blur(6px);
+      animation: pulse 2.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow:
+          0 0 24px rgba(0, 195, 255, 0.20),
+          0 0 28px rgba(255, 75, 92, 0.12),
+          0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      100% {
+        box-shadow:
+          0 0 38px rgba(0, 195, 255, 0.30),
+          0 0 42px rgba(255, 75, 92, 0.20),
+          0 16px 42px rgba(0, 0, 0, 0.12);
+      }
+    }
+
+    .login-container h1 {
+      font-size: clamp(1.7rem, 6vw, 2.1rem);
+      margin: 0 0 clamp(22px, 5vw, 28px);
+      color: #00aeea;
+      text-shadow: 0 0 10px rgba(255, 75, 92, 0.28);
+      letter-spacing: clamp(1px, 1vw, 2px);
+      line-height: 1.25;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    .login-container input {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      padding: clamp(13px, 3.5vw, 15px) clamp(14px, 4vw, 16px);
+      margin: 10px 0 18px 0;
+      border-radius: 14px;
+      outline: none;
+      font-size: clamp(0.95rem, 3.8vw, 1rem);
+      font-family: Arial, sans-serif;
+      color: #111;
+      background: #ffffff;
+      border: 2px solid rgba(0, 195, 255, 0.45);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 75, 92, 0.16),
+        0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+
+    .login-container input::placeholder {
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    .login-container input:focus {
+      border-color: #00c3ff;
+      background: #ffffff;
+      box-shadow:
+        0 0 0 3px rgba(0, 195, 255, 0.15),
+        0 0 14px rgba(0, 195, 255, 0.22),
+        inset 0 0 0 1px rgba(255, 75, 92, 0.20);
+      transform: scale(1.02);
+    }
+
+    .login-container button {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 8px;
+      padding: clamp(13px, 3.5vw, 14px);
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, #00c3ff, #ff4b5c);
+      color: #fff;
+      font-size: clamp(1rem, 4vw, 1.1rem);
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .login-container button:hover {
+      transform: scale(1.04);
+      box-shadow:
+        0 0 22px rgba(0, 195, 255, 0.45),
+        0 0 22px rgba(255, 75, 92, 0.35);
+    }
+
+    .login-container p {
+      margin: 18px 0 0;
+      font-size: clamp(0.78rem, 3.3vw, 0.9rem);
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .login-container a {
+      color: #ff4b5c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-container a:hover {
+      color: #00aeea;
+    }
+
+    .error {
+      color: #ff4b5c;
+      margin-top: 10px;
+      font-size: clamp(0.78rem, 3.2vw, 0.9rem);
+      text-shadow: 0 0 6px rgba(255, 75, 92, 0.28);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 1024px) {
+      .navbar {
+        width: min(92%, 420px);
+      }
+
+      .rings {
+        width: max(1500px, 240vmax);
+        height: max(1500px, 240vmax);
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 82px;
+      }
+
+      .navbar {
+        width: 90%;
+        gap: 5px;
+      }
+
+      .navbar a {
+        padding: 8px 5px;
+      }
+
+      .login-container {
+        width: min(100%, 380px);
+      }
+
+      .rings {
+        width: max(1200px, 260vmax);
+        height: max(1200px, 260vmax);
+      }
+
+      .center-wave {
+        width: 850px;
+        height: 850px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 78px 18px 18px;
+        align-items: center;
+      }
+
+      .navbar {
+        width: 94%;
+        top: 10px;
+        right: 0;
+        min-height: auto;
+        padding: 5px;
+        gap: 4px;
+        border-radius: 14px 0 0 14px;
+      }
+
+      .navbar a {
+        padding: 7px 4px;
+        font-size: 0.58rem;
+        border-radius: 9px;
+      }
+
+      .login-container {
+        width: 100%;
+        max-width: 360px;
+        padding: 30px 22px;
+      }
+
+      .login-container input {
+        min-height: 47px;
+      }
+
+      .login-container button {
+        min-height: 48px;
+      }
+
+      .rings {
+        width: max(950px, 290vmax);
+        height: max(950px, 290vmax);
+      }
+
+      .center-wave {
+        width: 680px;
+        height: 680px;
+      }
+
+      .glow-blue,
+      .glow-red {
+        width: 520px;
+        height: 520px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      body {
+        padding: 72px 12px 12px;
+      }
+
+      .navbar {
+        width: 96%;
+        gap: 3px;
+      }
+
+      .navbar a {
+        font-size: 0.54rem;
+        padding: 7px 2px;
+      }
+
+      .login-container {
+        padding: 26px 18px;
+        border-radius: 20px;
+      }
+
+      .login-container input {
+        margin-bottom: 14px;
+      }
+
+      .login-container p {
+        font-size: 0.76rem;
+      }
+    }
+
+    @media (max-height: 560px) {
+      body {
+        align-items: flex-start;
+        padding-top: 74px;
+        padding-bottom: 18px;
+      }
+
+      .navbar {
+        top: 8px;
+      }
+
+      .login-container {
+        padding-top: 24px;
+        padding-bottom: 24px;
+      }
+
+      .login-container h1 {
+        margin-bottom: 18px;
+      }
+
+      .login-container input {
+        margin-bottom: 12px;
+        min-height: 44px;
+      }
+
+      .login-container button {
+        min-height: 46px;
+      }
+
+      .login-container p {
+        margin-top: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="halo-bg">
+    <div class="rings rings-blue"></div>
+    <div class="rings rings-red"></div>
+    <div class="center-wave"></div>
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-red"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="Infoligas.php">Ligas</a>
+    <a href="acercade.php">Acerca de</a>
+    <a href="soprteteccnico.php">Soporte Técnico</a>
+  </nav>
+
+  <div class="login-container">
+    <h1>TAJIMAL ALTAMIRANO</h1>
+
+    <form action="login.php" method="POST">
+      <input type="text" name="usuario" placeholder="Usuario" required>
+      <input type="password" name="contrasena" placeholder="Contraseña" required>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    <div id="mensaje-error" class="error"></div>
+
+    <p>¿No tienes cuenta? <a href="NuevaCuenta.php">Regístrate</a></p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+    const contenedor = document.getElementById("mensaje-error");
+
+    if (error === "usuario") {
+      contenedor.textContent = "⚠️ El usuario no existe.";
+    } else if (error === "contraseña") {
+      contenedor.textContent = "❌ Contraseña incorrecta.";
+    } else if (error === "vacio") {
+      contenedor.textContent = "⚠️ Completa todos los campos.";
+    }
+  </script>
+</body>
+</html>
