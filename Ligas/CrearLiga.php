@@ -191,634 +191,518 @@ if (file_exists(__DIR__ . '/includes/retame_global.php')) {
 <title>Crear Liga - RETAME</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-/* TODO TU CSS ORIGINAL PERMANECE IGUAL */
-* { 
-    margin:0; 
-    padding:0; 
-    box-sizing:border-box; 
-    font-family:'Poppins', sans-serif; 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+    --azul:#1877f2;
+    --azul2:#0ea5e9;
+    --azul-neon-fuerte:#0099ff;
+    --cyan:#8fefff;
+    --rojo:#ff4b5c;
+    --rojo2:#ff2f45;
+    --texto:#111827;
+    --gris:#6b7280;
+    --fondo:#f0f2f5;
+    --blanco:#ffffff;
+    --sombra-azul:0 0 0 3px rgba(24,119,242,0.24),0 12px 28px rgba(24,119,242,0.16);
+    --sombra-roja:0 0 0 3px rgba(255,75,92,0.26),0 12px 28px rgba(255,75,92,0.16);
 }
 
-body { 
-    display:flex; 
-    min-height:100vh; 
-    background:linear-gradient(135deg,#140f27,#203a43,#1c2a92); 
-    color:#eee; 
-    overflow-x:hidden; 
-    position: relative;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* BURBUJAS/PARTÍCULAS DE FONDO */
-.bg-particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
+html,body{
+    width:100%;
+    min-height:100%;
 }
 
-.particle {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    animation: float 20s infinite linear;
+body.retame-oficial-page > .bg-particles,
+body.retame-oficial-page > .sidebar:not(.retame-oficial-sidebar),
+body.retame-oficial-page > .menu-toggle:not(.retame-oficial-menu-toggle),
+body.retame-oficial-page > .overlay:not(.retame-oficial-overlay),
+body.retame-oficial-page > .btn-ligas,
+body.retame-oficial-page > .btn-retar{
+    display:none !important;
 }
 
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-100vh) rotate(180deg);
-    }
+body.retame-oficial-page > .main-content{
+    position:relative !important;
+    z-index:2 !important;
+    width:min(1180px,100%) !important;
+    max-width:1180px !important;
+    margin-left:0 !important;
+    margin-right:auto !important;
+    padding-top:16px !important;
 }
 
-/* SIDEBAR */
-.sidebar { 
-    width:250px; 
-    background:#111820; 
-    padding:20px; 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center; 
-    box-shadow:5px 0 20px rgba(9,5,138,0.7);
-    position:fixed;
-    height:100vh;
-    z-index:1000;
+body.retame-oficial-page .main-content > h1{
+    width:min(900px,100%);
+    margin:0 auto 22px !important;
+    padding:24px 28px;
+    border-radius:28px;
+    background:
+        radial-gradient(circle at 14% 18%,rgba(24,119,242,0.20),transparent 270px),
+        radial-gradient(circle at 86% 82%,rgba(255,75,92,0.17),transparent 320px),
+        linear-gradient(90deg,rgba(24,119,242,0.08),rgba(255,255,255,0.02) 46%,rgba(255,75,92,0.08)),
+        rgba(255,255,255,0.94) !important;
+    border:1px solid rgba(17,24,39,0.05) !important;
+    box-shadow:
+        0 16px 34px rgba(0,0,0,0.10),
+        0 0 0 1px rgba(24,119,242,0.12),
+        0 0 18px rgba(0,153,255,0.14) !important;
+    color:var(--azul) !important;
+    font-family:'Orbitron',sans-serif !important;
+    font-size:clamp(1.45rem,4vw,2rem) !important;
+    font-weight:700 !important;
+    line-height:1.25;
+    text-align:left !important;
 }
 
-.sidebar h2 { 
-    color:#fff; 
-    margin-bottom:20px; 
-    text-align:center;
-    font-size:18px;
+body.retame-oficial-page .user-info{
+    width:min(900px,100%);
+    margin:0 auto 22px !important;
+    padding:16px 18px !important;
+    border-radius:22px !important;
+    background:rgba(255,255,255,0.96) !important;
+    border:2px solid rgba(0,153,255,0.26) !important;
+    box-shadow:
+        0 12px 24px rgba(0,0,0,0.08),
+        0 0 0 2px rgba(255,75,92,0.09) !important;
 }
 
-.sidebar img { 
-    width:90px; 
-    height:90px;
-    margin-bottom:10px; 
-    border-radius:50%;
-    border:3px solid #00ffc6;
+body.retame-oficial-page .user-info p{
+    margin:4px 0 !important;
+    color:#4b5563 !important;
+    font-size:13px !important;
+    line-height:1.55;
 }
 
-.menu { 
-    list-style:none; 
-    width:100%; 
-    margin-top:20px;
+body.retame-oficial-page .user-info strong{
+    color:#111827 !important;
+    font-weight:900 !important;
 }
 
-.menu li { 
-    padding:12px; 
-    margin:10px 0; 
-    border-radius:8px; 
-    background:rgba(0,255,198,0.1); 
-    text-align:center; 
-    transition:all 0.3s ease;
-    border:1px solid rgba(0,255,198,0.2);
+body.retame-oficial-page .form-liga-container,
+body.retame-oficial-page .resumen-liga-container{
+    width:min(900px,100%) !important;
+    max-width:900px !important;
+    margin:0 auto 28px !important;
+    padding:clamp(22px,3vw,30px) !important;
+    border-radius:28px !important;
+    background:rgba(255,255,255,0.94) !important;
+    border:1px solid rgba(17,24,39,0.05) !important;
+    box-shadow:
+        0 16px 34px rgba(0,0,0,0.10),
+        0 0 0 1px rgba(24,119,242,0.12),
+        0 0 18px rgba(0,153,255,0.14) !important;
+    backdrop-filter:none !important;
 }
 
-.menu li a { 
-    color:#fff; 
-    text-decoration:none; 
-    font-weight:bold; 
-    display:block; 
-    font-size:14px;
+body.retame-oficial-page .form-liga-container h2,
+body.retame-oficial-page .resumen-liga-container h2{
+    margin:0 0 24px !important;
+    color:var(--azul) !important;
+    font-family:'Orbitron',sans-serif !important;
+    font-size:clamp(1.25rem,3vw,1.65rem) !important;
+    font-weight:700 !important;
+    text-align:left !important;
 }
 
-.menu li:hover { 
-    background:rgba(244,16,16,0.3); 
-    transform:translateX(5px);
-    border-color:rgba(244,16,16,0.5);
+body.retame-oficial-page .form-group{
+    margin-bottom:18px !important;
 }
 
-/* CONTENIDO PRINCIPAL */
-.main-content { 
-    flex:1; 
-    padding:40px; 
-    margin-left:250px;
-    min-height:100vh;
-    position: relative;
-    z-index: 1;
+body.retame-oficial-page .form-group label{
+    display:block;
+    margin-bottom:7px !important;
+    color:#374151 !important;
+    font-size:13px !important;
+    font-weight:900 !important;
 }
 
-.main-content h1 {
-    font-size:32px;
-    color:#ffffff;
-    margin-bottom:30px;
-    text-align:center;
+body.retame-oficial-page .required::after{
+    content:" *";
+    color:var(--rojo2) !important;
 }
 
-/* TARJETA DE PERFIL */
-.perfil-card { 
-    background:rgba(27,31,39,0.9); 
-    padding:40px; 
-    border-radius:20px; 
-    box-shadow:0 0 30px rgba(0,26,255,0.5);
-    max-width:900px;
-    margin:0 auto;
-    text-align:center;
-    backdrop-filter:blur(10px);
-    border:1px solid rgba(0,26,255,0.2);
+body.retame-oficial-page .form-group input[type="text"],
+body.retame-oficial-page .form-group input[type="date"],
+body.retame-oficial-page .form-group select,
+body.retame-oficial-page .form-group textarea{
+    display:block;
+    width:100% !important;
+    min-height:50px;
+    margin:0 !important;
+    padding:12px 14px !important;
+    border:2px solid rgba(0,153,255,0.42) !important;
+    border-radius:16px !important;
+    outline:none !important;
+    background:#ffffff !important;
+    color:#111827 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:14px !important;
+    font-weight:500;
+    box-shadow:0 6px 15px rgba(0,0,0,0.05) !important;
+    transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease !important;
 }
 
-.perfil-card h3 {
-    color:#00ffc6;
-    margin-bottom:30px;
-    font-size:24px;
+body.retame-oficial-page .form-group textarea{
+    min-height:115px;
+    resize:vertical;
+    line-height:1.55;
 }
 
-/* EQUIPOS EN CÍRCULOS */
-.equipos-container {
-    display:flex;
-    flex-wrap:wrap;
+body.retame-oficial-page .form-group input::placeholder,
+body.retame-oficial-page .form-group textarea::placeholder{
+    color:#9ca3af !important;
+    opacity:1;
+}
+
+body.retame-oficial-page .form-group select option{
+    background:#ffffff;
+    color:#111827;
+}
+
+body.retame-oficial-page .form-group input[type="text"]:focus,
+body.retame-oficial-page .form-group input[type="date"]:focus,
+body.retame-oficial-page .form-group select:focus,
+body.retame-oficial-page .form-group textarea:focus{
+    border-color:var(--azul-neon-fuerte) !important;
+    box-shadow:var(--sombra-azul) !important;
+    transform:translateY(-1px);
+}
+
+body.retame-oficial-page .form-group small{
+    display:block;
+    margin-top:6px !important;
+    color:#6b7280 !important;
+    font-size:11px !important;
+    font-weight:600;
+    line-height:1.45;
+}
+
+body.retame-oficial-page #error_nombre,
+body.retame-oficial-page #error_cp{
+    color:var(--rojo2) !important;
+    font-weight:800 !important;
+}
+
+body.retame-oficial-page .form-liga-container .form-group > div[style]{
+    padding:16px !important;
+    border-radius:18px !important;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(24,119,242,0.10),transparent 170px),
+        #f8fbff !important;
+    border:2px solid rgba(0,153,255,0.28) !important;
+    box-shadow:
+        0 8px 18px rgba(0,0,0,0.05),
+        0 0 0 2px rgba(255,75,92,0.05) !important;
+}
+
+body.retame-oficial-page .form-liga-container .form-group > div[style] > p{
+    margin:0 !important;
+    color:var(--azul) !important;
+    font-size:13px !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .form-liga-container .form-group > div[style] > ul{
+    margin:10px 0 0 20px !important;
+    color:#374151 !important;
+    font-size:13px;
+    line-height:1.75;
+}
+
+body.retame-oficial-page .form-liga-container .form-group > div[style] li::marker{
+    color:var(--rojo2);
+}
+
+body.retame-oficial-page .btn-submit,
+body.retame-oficial-page .btn-finalizar{
+    display:flex !important;
+    align-items:center;
     justify-content:center;
-    gap:25px;
-    margin-top:30px;
+    width:100% !important;
+    min-height:50px;
+    padding:12px 18px !important;
+    border:2px solid transparent !important;
+    border-radius:18px !important;
+    background:linear-gradient(135deg,#ff6d76,#ff4b5c,#ff3045) !important;
+    color:#ffffff !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:13px !important;
+    font-weight:900 !important;
+    cursor:pointer;
+    text-decoration:none !important;
+    box-shadow:var(--sombra-roja) !important;
+    transition:.25s ease !important;
 }
 
-.circle-equipo { 
-    width:120px; 
-    height:120px; 
-    border-radius:50%; 
-    background:linear-gradient(135deg,#ff0000,#e00000);
-    color:#fff; 
-    font-weight:bold; 
-    border:none; 
-    cursor:pointer; 
-    display:flex; 
-    justify-content:center; 
-    align-items:center; 
-    transition:all 0.3s ease; 
-    font-size:14px;
+body.retame-oficial-page .btn-submit{
+    margin-top:8px !important;
+}
+
+body.retame-oficial-page .btn-finalizar{
+    margin-top:0 !important;
+}
+
+body.retame-oficial-page .btn-submit:hover,
+body.retame-oficial-page .btn-finalizar:hover{
+    transform:translateY(-3px) !important;
+    box-shadow:
+        0 0 0 3px rgba(255,75,92,0.30),
+        0 15px 30px rgba(255,75,92,0.22) !important;
+}
+
+body.retame-oficial-page .alert{
+    width:min(900px,100%);
+    margin:0 auto 22px !important;
+    padding:15px 16px !important;
+    border-radius:18px !important;
+    font-size:13px;
+    font-weight:900 !important;
+    line-height:1.5;
     text-align:center;
-    padding:10px;
-    border:3px solid rgba(255,255,255,0.2);
-    box-shadow:0 5px 15px rgba(255,0,0,0.3);
+    animation:fadeIn .35s ease;
 }
 
-.circle-equipo:hover { 
-    transform:scale(1.1); 
-    box-shadow:0 10px 25px rgba(255,0,0,0.5);
-    border-color:rgba(255,255,255,0.5);
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(-8px);}
+    to{opacity:1;transform:translateY(0);}
 }
 
-/* SIN EQUIPOS */
-.no-equipos {
-    background:rgba(255,0,0,0.1);
-    border:1px solid rgba(255,0,0,0.3);
-    border-radius:15px;
-    padding:40px;
-    margin:30px 0;
-    color:#ff9999;
-    text-align:center;
+body.retame-oficial-page .alert-success{
+    background:#f0fdf4 !important;
+    border:2px solid rgba(34,197,94,0.34) !important;
+    color:#15803d !important;
+    box-shadow:0 10px 22px rgba(34,197,94,0.09) !important;
 }
 
-/* MODAL */
-.modal { 
-    display:none; 
-    position:fixed; 
-    top:0; 
-    left:0; 
-    width:100%; 
-    height:100%; 
-    background:rgba(0,0,0,0.8); 
-    justify-content:center; 
-    align-items:center; 
-    z-index:2000; 
-    backdrop-filter:blur(5px);
+body.retame-oficial-page .alert-error{
+    background:#fff5f7 !important;
+    border:2px solid rgba(255,75,92,0.38) !important;
+    color:#b91c1c !important;
+    box-shadow:0 10px 22px rgba(255,75,92,0.10) !important;
 }
 
-.modal-content { 
-    background:#1b1f27; 
-    padding:30px; 
-    border-radius:15px; 
-    text-align:center; 
-    color:#fff; 
-    max-width:400px;
-    width:90%;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    border:1px solid rgba(0,255,198,0.3);
+body.retame-oficial-page .info-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:14px !important;
+    margin-bottom:26px !important;
 }
 
-.modal-content h3 {
-    color:#00ffc6;
-    margin-bottom:20px;
-    font-size:22px;
+body.retame-oficial-page .info-item{
+    min-width:0;
+    padding:16px !important;
+    border-radius:20px !important;
+    background:linear-gradient(180deg,#ffffff,#fbfbfb) !important;
+    border:2px solid rgba(0,153,255,0.26) !important;
+    box-shadow:
+        0 9px 20px rgba(0,0,0,0.06),
+        0 0 0 2px rgba(255,75,92,0.06) !important;
+    transition:.25s ease;
 }
 
-.modal-content button { 
-    margin:10px; 
-    padding:12px 25px; 
-    border:none; 
-    border-radius:8px; 
-    cursor:pointer; 
-    font-weight:bold;
-    background:linear-gradient(135deg,#ff0000,#e00000);
-    color:white;
-    transition:all 0.3s ease;
-}
-
-.modal-content button:hover {
-    background:linear-gradient(135deg,#e00000,#c00000);
+body.retame-oficial-page .info-item:hover{
     transform:translateY(-2px);
+    border-color:rgba(255,75,92,0.70) !important;
+    box-shadow:
+        0 12px 24px rgba(0,0,0,0.08),
+        0 0 0 3px rgba(0,153,255,0.18) !important;
 }
 
-.modal-content input, .modal-content select, .modal-content textarea { 
-    margin:8px 0; 
-    padding:12px; 
-    width:100%; 
-    border-radius:8px; 
-    border:1px solid rgba(0,255,198,0.3);
-    background:rgba(255,255,255,0.1);
-    color:white;
-    font-size:14px;
+body.retame-oficial-page .info-item strong{
+    display:block;
+    margin-bottom:6px !important;
+    color:#111827 !important;
+    font-size:11px !important;
+    font-weight:900 !important;
+    text-transform:uppercase;
+    letter-spacing:.35px;
 }
 
-.modal-content input::placeholder, .modal-content textarea::placeholder {
-    color:#aaa;
+body.retame-oficial-page .info-item span{
+    display:block;
+    color:#4b5563 !important;
+    font-size:14px !important;
+    font-weight:600;
+    line-height:1.5;
+    word-break:break-word;
 }
 
-#notificacion { 
-    margin-top:15px; 
-    font-weight:bold; 
-    color:#00ff00;
-    padding:10px;
-    background:rgba(0,255,0,0.1);
-    border-radius:8px;
-    border:1px solid #00ff00;
+body.retame-oficial-page .info-item span[style]{
+    color:var(--azul) !important;
+    font-weight:900 !important;
 }
 
-#joinForm, #createForm {
-    margin-top:20px;
-    padding-top:20px;
-    border-top:1px solid rgba(255,255,255,0.1);
+body.retame-oficial-page .descripcion-item{
+    grid-column:1 / -1 !important;
 }
 
-.btn-cerrar {
-    background:rgba(100,100,100,0.5) !important;
-    border:1px solid #666 !important;
+body.retame-oficial-page .resumen-liga-container > div:last-child{
+    margin-top:28px !important;
+    padding-top:22px !important;
+    border-top:1px solid rgba(17,24,39,0.08) !important;
 }
 
-.btn-cerrar:hover {
-    background:rgba(150,150,150,0.5) !important;
+body.retame-oficial-page .resumen-liga-container > div:last-child > p:first-child{
+    margin-bottom:20px !important;
+    color:var(--azul) !important;
+    font-weight:800;
 }
 
-/* BOTONES FLOTANTES */
-.btn-retar {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(135deg,#ff0000,#e00000);
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 0 20px rgba(255,0,0,0.7);
-    transition: all 0.3s ease;
-    z-index: 999;
-    border: 2px solid rgba(255,255,255,0.3);
+body.retame-oficial-page .resumen-liga-container > div:last-child > p:last-child{
+    margin-top:18px !important;
+    color:#6b7280 !important;
 }
 
-.btn-ligas {
-    position: fixed;
-    bottom: 130px;
-    right: 20px;
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(135deg,#00aaff,#0066cc);
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    box-shadow: 0 0 20px rgba(0,100,255,0.7);
-    transition: all 0.3s ease;
-    z-index: 998;
-    border: 2px solid rgba(255,255,255,0.3);
+body.retame-oficial-page .resumen-liga-container > div:last-child > p:last-child strong{
+    color:#111827 !important;
 }
 
-.btn-retar:hover, .btn-ligas:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 30px rgba(255,0,0,0.9);
+body.retame-oficial-page.dark-mode .main-content > h1,
+body.retame-oficial-page.dark-mode .user-info,
+body.retame-oficial-page.dark-mode .form-liga-container,
+body.retame-oficial-page.dark-mode .resumen-liga-container,
+body.retame-oficial-page.dark-mode .info-item{
+    background:#111827 !important;
+    color:#e5e7eb !important;
+    border-color:rgba(255,75,92,0.78) !important;
+    box-shadow:
+        0 10px 24px rgba(0,0,0,0.28),
+        0 0 0 2px rgba(0,153,255,0.24),
+        0 0 18px rgba(0,153,255,0.18) !important;
 }
 
-.btn-ligas:hover {
-    box-shadow: 0 0 30px rgba(0,100,255,0.9);
+body.retame-oficial-page.dark-mode .main-content > h1,
+body.retame-oficial-page.dark-mode .form-liga-container h2,
+body.retame-oficial-page.dark-mode .resumen-liga-container h2{
+    color:var(--cyan) !important;
 }
 
-/* FORMULARIO CREAR LIGA */
-.form-liga-container {
-    background: rgba(27, 31, 39, 0.9);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(0, 100, 255, 0.5);
-    max-width: 700px;
-    margin: 30px auto;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 100, 255, 0.3);
+body.retame-oficial-page.dark-mode .user-info p,
+body.retame-oficial-page.dark-mode .info-item span{
+    color:#d1d5db !important;
 }
 
-.form-liga-container h2 {
-    color: #00ffc6;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
+body.retame-oficial-page.dark-mode .user-info strong,
+body.retame-oficial-page.dark-mode .form-group label,
+body.retame-oficial-page.dark-mode .info-item strong,
+body.retame-oficial-page.dark-mode .resumen-liga-container > div:last-child > p:last-child strong{
+    color:#f9fafb !important;
 }
 
-.form-group {
-    margin-bottom: 20px;
+body.retame-oficial-page.dark-mode .form-group input[type="text"],
+body.retame-oficial-page.dark-mode .form-group input[type="date"],
+body.retame-oficial-page.dark-mode .form-group select,
+body.retame-oficial-page.dark-mode .form-group textarea{
+    background:#0b1220 !important;
+    color:#e5e7eb !important;
+    border-color:rgba(0,153,255,0.45) !important;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #00ffc6;
-    font-weight: bold;
+body.retame-oficial-page.dark-mode .form-group input::placeholder,
+body.retame-oficial-page.dark-mode .form-group textarea::placeholder,
+body.retame-oficial-page.dark-mode .form-group small{
+    color:#9ca3af !important;
 }
 
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: 2px solid rgba(0, 255, 198, 0.3);
-    background: rgba(0, 0, 0, 0.3);
-    color: white;
-    font-size: 16px;
-    transition: all 0.3s ease;
+body.retame-oficial-page.dark-mode .form-group select option{
+    background:#0b1220 !important;
+    color:#e5e7eb !important;
 }
 
-.form-group input[type="text"]:focus,
-.form-group input[type="date"]:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #00ffc6;
-    box-shadow: 0 0 10px rgba(0, 255, 198, 0.5);
+body.retame-oficial-page.dark-mode .form-liga-container .form-group > div[style]{
+    background:
+        radial-gradient(circle at 10% 10%,rgba(0,153,255,0.13),transparent 170px),
+        #0b1220 !important;
+    border-color:rgba(0,153,255,0.45) !important;
+    box-shadow:0 8px 20px rgba(0,0,0,0.22) !important;
 }
 
-.form-group textarea {
-    min-height: 100px;
-    resize: vertical;
+body.retame-oficial-page.dark-mode .form-liga-container .form-group > div[style] > p{
+    color:var(--cyan) !important;
 }
 
-.required::after {
-    content: " *";
-    color: #ff5555;
+body.retame-oficial-page.dark-mode .form-liga-container .form-group > div[style] > ul{
+    color:#d1d5db !important;
 }
 
-.btn-submit {
-    background: linear-gradient(135deg, #00aaff, #0066cc);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
-    transition: all 0.3s ease;
+body.retame-oficial-page.dark-mode .info-item span[style],
+body.retame-oficial-page.dark-mode .resumen-liga-container > div:last-child > p:first-child{
+    color:var(--cyan) !important;
 }
 
-.btn-submit:hover {
-    background: linear-gradient(135deg, #0066cc, #004499);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 100, 255, 0.4);
+body.retame-oficial-page.dark-mode .resumen-liga-container > div:last-child{
+    border-top-color:rgba(255,255,255,0.08) !important;
 }
 
-/* INFORMACIÓN DEL USUARIO */
-.user-info {
-    background: rgba(0, 100, 255, 0.1);
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 30px;
-    border: 1px solid rgba(0, 100, 255, 0.3);
+body.retame-oficial-page.dark-mode .resumen-liga-container > div:last-child > p:last-child{
+    color:#9ca3af !important;
 }
 
-.user-info p {
-    margin: 5px 0;
-    color: #00ffc6;
-}
-
-.user-info strong {
-    color: white;
-}
-
-/* MENSAJES DE ALERTA */
-.alert {
-    padding: 15px 20px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    font-weight: bold;
-    text-align: center;
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.alert-success {
-    background: rgba(0, 255, 100, 0.1);
-    border: 2px solid #00ff64;
-    color: #00ff64;
-}
-
-.alert-error {
-    background: rgba(255, 50, 50, 0.1);
-    border: 2px solid #ff3232;
-    color: #ff3232;
-}
-
-/* RESPONSIVE */
-@media screen and (max-width: 1024px) {
-    .sidebar {
-        width: 200px;
+@media screen and (max-width:820px){
+    body.retame-oficial-page > .main-content{
+        width:100% !important;
+        max-width:100% !important;
+        padding-top:12px !important;
     }
-    .main-content {
-        margin-left: 200px;
-        padding: 20px;
-    }
-    .perfil-card, .form-liga-container {
-        margin: 20px auto;
-        padding: 30px;
+
+    body.retame-oficial-page .main-content > h1,
+    body.retame-oficial-page .user-info,
+    body.retame-oficial-page .form-liga-container,
+    body.retame-oficial-page .resumen-liga-container{
+        width:100% !important;
+        max-width:100% !important;
     }
 }
 
-@media screen and (max-width: 768px) {
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -250px;
-        width: 250px;
-        height: 100%;
-        transition: left 0.3s ease;
-        z-index: 1000;
+@media screen and (max-width:620px){
+    body.retame-oficial-page .main-content > h1{
+        margin-bottom:16px !important;
+        padding:20px 17px !important;
+        border-radius:24px !important;
+        text-align:center !important;
+        font-size:1.3rem !important;
     }
-    .sidebar.active {
-        left: 0;
-    }
-    .main-content {
-        margin-left: 0;
-        padding: 20px;
-    }
-    .btn-retar, .btn-ligas {
-        width: 70px;
-        height: 70px;
-        font-size: 14px;
-        bottom: 15px;
-        right: 15px;
-    }
-    .btn-ligas {
-        bottom: 100px;
-    }
-    
-    .form-liga-container {
-        padding: 25px;
-        margin: 15px auto;
-    }
-    
-    /* Botón hamburguesa para móviles */
-    .menu-toggle {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background: rgba(255, 0, 0, 0.8);
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 1001;
-        font-size: 1.2rem;
-    }
-}
 
-@media screen and (max-width: 480px) {
-    .equipos-container {
-        gap: 15px;
+    body.retame-oficial-page .user-info{
+        margin-bottom:16px !important;
+        padding:14px 15px !important;
+        border-radius:20px !important;
     }
-    .circle-equipo {
-        width: 100px;
-        height: 100px;
-        font-size: 12px;
+
+    body.retame-oficial-page .form-liga-container,
+    body.retame-oficial-page .resumen-liga-container{
+        margin-bottom:18px !important;
+        padding:20px 16px !important;
+        border-radius:24px !important;
     }
-    .perfil-card, .form-liga-container {
-        padding: 20px;
+
+    body.retame-oficial-page .form-liga-container h2,
+    body.retame-oficial-page .resumen-liga-container h2{
+        margin-bottom:22px !important;
+        text-align:center !important;
     }
-    
-    .form-liga-container h2 {
-        font-size: 24px;
+
+    body.retame-oficial-page .form-group input[type="text"],
+    body.retame-oficial-page .form-group input[type="date"],
+    body.retame-oficial-page .form-group select,
+    body.retame-oficial-page .form-group textarea{
+        font-size:16px !important;
     }
-    
-    .btn-submit {
-        padding: 12px 20px;
-        font-size: 16px;
+
+    body.retame-oficial-page .info-grid{
+        grid-template-columns:1fr !important;
     }
-}
 
-/* OVERLAY PARA MÓVIL */
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 999;
-}
-.overlay.active {
-    display: block;
-}
-
-/* AÑADO SOLO LOS ESTILOS NUEVOS QUE NECESITAS */
-.resumen-liga-container {
-    background: rgba(27, 31, 39, 0.9);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(0, 255, 100, 0.3);
-    max-width: 800px;
-    margin: 30px auto;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(0, 255, 100, 0.5);
-}
-
-.resumen-liga-container h2 {
-    color: #00ff64;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
-}
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.info-item {
-    background: rgba(0, 255, 198, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 255, 198, 0.3);
-}
-
-.info-item strong {
-    color: #00ffc6;
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-
-.info-item span {
-    color: white;
-    font-size: 16px;
-    word-break: break-word;
-}
-
-.descripcion-item {
-    grid-column: 1 / -1;
-}
-
-.btn-finalizar {
-    background: linear-gradient(135deg, #ff0000, #e00000);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-}
-
-.btn-finalizar:hover {
-    background: linear-gradient(135deg, #e00000, #c00000);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.4);
+    body.retame-oficial-page .descripcion-item{
+        grid-column:auto !important;
+    }
 }
 </style>
 <?php if (function_exists('retame_render_global_css')) { retame_render_global_css(); } ?>
