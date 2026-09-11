@@ -419,931 +419,1014 @@ if (file_exists(__DIR__ . '/includes/retame_global.php')) {
     <title>Unirse a Liga - RETAME</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    * { 
-        margin:0; 
-        padding:0; 
-        box-sizing:border-box; 
-        font-family:'Poppins', sans-serif; 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+    --azul:#1877f2;
+    --azul2:#0ea5e9;
+    --azul-neon-fuerte:#0099ff;
+    --cyan:#8fefff;
+    --rojo:#ff4b5c;
+    --rojo2:#ff2f45;
+    --texto:#111827;
+    --gris:#6b7280;
+    --blanco:#ffffff;
+    --sombra-azul:0 0 0 3px rgba(24,119,242,.22),0 12px 28px rgba(24,119,242,.14);
+    --sombra-roja:0 0 0 3px rgba(255,75,92,.22),0 12px 28px rgba(255,75,92,.14);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body.retame-oficial-page > .bg-particles,
+body.retame-oficial-page > .sidebar:not(.retame-oficial-sidebar),
+body.retame-oficial-page > .menu-toggle:not(.retame-oficial-menu-toggle),
+body.retame-oficial-page > .overlay:not(.retame-oficial-overlay),
+body.retame-oficial-page > .btn-ligas,
+body.retame-oficial-page > .btn-retar{
+    display:none !important;
+}
+
+body.retame-oficial-page > .main-content{
+    position:relative !important;
+    z-index:2 !important;
+    width:min(1180px,100%) !important;
+    max-width:1180px !important;
+    margin-left:0 !important;
+    margin-right:auto !important;
+    padding-top:16px !important;
+}
+
+body.retame-oficial-page .main-content > h1{
+    width:100%;
+    margin:0 0 22px !important;
+    padding:24px 28px;
+    border-radius:28px;
+    background:
+        radial-gradient(circle at 14% 18%,rgba(24,119,242,.20),transparent 270px),
+        radial-gradient(circle at 86% 82%,rgba(255,75,92,.17),transparent 320px),
+        linear-gradient(90deg,rgba(24,119,242,.08),rgba(255,255,255,.02) 46%,rgba(255,75,92,.08)),
+        rgba(255,255,255,.94) !important;
+    border:1px solid rgba(17,24,39,.05) !important;
+    box-shadow:
+        0 16px 34px rgba(0,0,0,.10),
+        0 0 0 1px rgba(24,119,242,.12),
+        0 0 18px rgba(0,153,255,.14) !important;
+    color:var(--azul) !important;
+    font-family:'Orbitron',sans-serif !important;
+    font-size:clamp(1.45rem,4vw,2rem) !important;
+    font-weight:700 !important;
+    line-height:1.25;
+    text-align:left !important;
+}
+
+body.retame-oficial-page .card,
+body.retame-oficial-page .search-section,
+body.retame-oficial-page .seleccion-equipo-section{
+    position:relative;
+    overflow:hidden;
+    width:100%;
+    margin:0 0 24px !important;
+    padding:clamp(20px,3vw,30px) !important;
+    border-radius:28px !important;
+    background:rgba(255,255,255,.94) !important;
+    border:1px solid rgba(17,24,39,.05) !important;
+    box-shadow:
+        0 16px 34px rgba(0,0,0,.10),
+        0 0 0 1px rgba(24,119,242,.12),
+        0 0 18px rgba(0,153,255,.14) !important;
+    backdrop-filter:none !important;
+}
+
+body.retame-oficial-page .card::before,
+body.retame-oficial-page .search-section::before,
+body.retame-oficial-page .seleccion-equipo-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 8% 5%,rgba(24,119,242,.09),transparent 250px),
+        radial-gradient(circle at 94% 92%,rgba(255,75,92,.08),transparent 280px);
+}
+
+body.retame-oficial-page .card > *,
+body.retame-oficial-page .search-section > *,
+body.retame-oficial-page .seleccion-equipo-section > *{
+    position:relative;
+    z-index:1;
+}
+
+body.retame-oficial-page .card h2,
+body.retame-oficial-page .search-header h2,
+body.retame-oficial-page .seleccion-equipo-section h2{
+    color:var(--azul) !important;
+    font-family:'Orbitron',sans-serif !important;
+    font-size:clamp(1.15rem,3vw,1.55rem) !important;
+    font-weight:700 !important;
+}
+
+body.retame-oficial-page .card h2{
+    margin:0 0 20px !important;
+    padding-bottom:12px;
+    border-bottom:2px solid rgba(0,153,255,.20) !important;
+}
+
+body.retame-oficial-page .search-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:20px !important;
+}
+
+body.retame-oficial-page .search-header h2{
+    margin:0 !important;
+}
+
+body.retame-oficial-page .search-header p[style]{
+    color:#6b7280 !important;
+}
+
+body.retame-oficial-page .search-icon{
+    width:50px !important;
+    height:50px !important;
+    min-width:50px;
+    border-radius:17px !important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ffffff !important;
+    color:var(--azul) !important;
+    border:2px solid rgba(0,153,255,.35) !important;
+    box-shadow:var(--sombra-azul) !important;
+    font-size:1.3rem !important;
+}
+
+body.retame-oficial-page .user-info{
+    margin:18px 0 20px !important;
+    padding:16px 18px !important;
+    border-radius:18px !important;
+    background:rgba(24,119,242,.055) !important;
+    border:2px dashed rgba(0,153,255,.25) !important;
+}
+
+body.retame-oficial-page .info-row{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:8px !important;
+    color:#4b5563;
+    font-size:13px;
+    line-height:1.5;
+}
+
+body.retame-oficial-page .info-row:last-child{
+    margin-bottom:0 !important;
+}
+
+body.retame-oficial-page .info-label{
+    min-width:145px !important;
+    color:#111827 !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .info-value{
+    color:#4b5563 !important;
+    font-weight:600;
+}
+
+body.retame-oficial-page .search-type{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px !important;
+    margin-bottom:16px !important;
+}
+
+body.retame-oficial-page .search-option{
+    text-align:center;
+}
+
+body.retame-oficial-page .search-option input[type="radio"]{
+    display:none;
+}
+
+body.retame-oficial-page .search-option label{
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:10px 14px !important;
+    border-radius:16px !important;
+    background:#ffffff !important;
+    color:#374151 !important;
+    border:2px solid rgba(0,153,255,.20) !important;
+    box-shadow:0 6px 14px rgba(0,0,0,.04);
+    cursor:pointer;
+    font-size:13px;
+    font-weight:900 !important;
+    transition:.22s ease !important;
+}
+
+body.retame-oficial-page .search-option label:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,75,92,.55) !important;
+}
+
+body.retame-oficial-page .search-option input[type="radio"]:checked + label{
+    background:#f8fbff !important;
+    color:var(--azul) !important;
+    border-color:var(--azul-neon-fuerte) !important;
+    box-shadow:var(--sombra-azul) !important;
+    transform:translateY(-1px);
+}
+
+body.retame-oficial-page .search-input-group{
+    display:flex !important;
+    align-items:stretch;
+    gap:10px !important;
+    margin-bottom:0 !important;
+}
+
+body.retame-oficial-page .search-input{
+    flex:1;
+    min-width:0;
+    min-height:50px;
+    padding:12px 15px !important;
+    border:2px solid rgba(0,153,255,.32) !important;
+    border-radius:16px !important;
+    outline:none !important;
+    background:#ffffff !important;
+    color:#111827 !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:14px !important;
+    font-weight:500;
+    box-shadow:0 6px 15px rgba(0,0,0,.04) !important;
+    transition:.22s ease !important;
+}
+
+body.retame-oficial-page .search-input::placeholder{
+    color:#9ca3af !important;
+}
+
+body.retame-oficial-page .search-input:focus{
+    border-color:var(--azul-neon-fuerte) !important;
+    box-shadow:var(--sombra-azul) !important;
+}
+
+body.retame-oficial-page .search-button,
+body.retame-oficial-page .cancel-button,
+body.retame-oficial-page .action-button,
+body.retame-oficial-page .btn-cancelar-seleccion,
+body.retame-oficial-page .btn-confirmar-inscripcion{
+    min-height:48px;
+    padding:11px 17px !important;
+    border-radius:16px !important;
+    font-family:'Poppins',sans-serif !important;
+    font-size:13px !important;
+    font-weight:900 !important;
+    cursor:pointer;
+    transition:.22s ease !important;
+    text-align:center;
+}
+
+body.retame-oficial-page .search-button,
+body.retame-oficial-page .btn-detalles{
+    border:0 !important;
+    background:linear-gradient(135deg,#1877f2,#0ea5e9) !important;
+    color:#ffffff !important;
+    box-shadow:0 9px 18px rgba(24,119,242,.18) !important;
+}
+
+body.retame-oficial-page .btn-unirse,
+body.retame-oficial-page .btn-confirmar-inscripcion{
+    border:0 !important;
+    background:linear-gradient(135deg,#ff6d76,#ff4b5c,#ff3045) !important;
+    color:#ffffff !important;
+    box-shadow:0 9px 18px rgba(255,75,92,.20) !important;
+}
+
+body.retame-oficial-page .cancel-button,
+body.retame-oficial-page .btn-cancelar-seleccion{
+    background:#ffffff !important;
+    color:var(--rojo2) !important;
+    border:2px solid rgba(255,75,92,.34) !important;
+    box-shadow:0 8px 16px rgba(255,75,92,.08) !important;
+}
+
+body.retame-oficial-page .search-button:hover,
+body.retame-oficial-page .cancel-button:hover,
+body.retame-oficial-page .action-button:hover,
+body.retame-oficial-page .btn-cancelar-seleccion:hover,
+body.retame-oficial-page .btn-confirmar-inscripcion:hover:not(:disabled){
+    transform:translateY(-2px) !important;
+}
+
+body.retame-oficial-page .btn-confirmar-inscripcion:disabled{
+    background:#cbd5e1 !important;
+    color:#64748b !important;
+    box-shadow:none !important;
+    cursor:not-allowed;
+    opacity:1 !important;
+}
+
+body.retame-oficial-page .alert{
+    width:100%;
+    margin:0 0 20px !important;
+    padding:15px 17px !important;
+    border-radius:18px !important;
+    font-size:13px;
+    font-weight:700;
+    line-height:1.55;
+    box-shadow:0 10px 22px rgba(0,0,0,.07);
+}
+
+body.retame-oficial-page .alert-success{
+    background:#f0fdf4 !important;
+    border:2px solid rgba(34,197,94,.34) !important;
+    color:#15803d !important;
+}
+
+body.retame-oficial-page .alert-error{
+    background:#fff5f7 !important;
+    border:2px solid rgba(255,75,92,.38) !important;
+    color:#b91c1c !important;
+}
+
+body.retame-oficial-page .alert-info{
+    background:#eff6ff !important;
+    border:2px solid rgba(24,119,242,.28) !important;
+    color:#1d4ed8 !important;
+}
+
+body.retame-oficial-page .alert a[style]{
+    color:var(--azul) !important;
+    font-weight:900;
+}
+
+body.retame-oficial-page .results-count{
+    display:inline-flex !important;
+    align-items:center;
+    min-height:34px;
+    margin:0 0 16px !important;
+    padding:7px 12px !important;
+    border-radius:999px !important;
+    background:#ffffff !important;
+    color:var(--azul) !important;
+    border:2px solid rgba(0,153,255,.25) !important;
+    box-shadow:0 0 0 2px rgba(255,75,92,.07);
+    font-size:11px !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .ligas-container{
+    display:grid !important;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr)) !important;
+    gap:16px !important;
+    max-height:620px;
+    overflow-y:auto;
+    padding:4px 8px 4px 2px !important;
+}
+
+body.retame-oficial-page .ligas-container::-webkit-scrollbar{
+    width:9px;
+}
+
+body.retame-oficial-page .ligas-container::-webkit-scrollbar-track{
+    background:rgba(24,119,242,.07);
+    border-radius:999px;
+}
+
+body.retame-oficial-page .ligas-container::-webkit-scrollbar-thumb{
+    background:linear-gradient(180deg,#1877f2,#ff4b5c);
+    border-radius:999px;
+}
+
+body.retame-oficial-page .liga-card{
+    position:relative;
+    overflow:visible;
+    min-width:0;
+    padding:16px !important;
+    border-radius:22px !important;
+    background:linear-gradient(180deg,#ffffff,#fbfbfb) !important;
+    border:2px solid rgba(255,75,92,.62) !important;
+    border-left:2px solid rgba(255,75,92,.62) !important;
+    box-shadow:
+        0 10px 22px rgba(0,0,0,.07),
+        0 0 0 2px rgba(0,153,255,.18),
+        0 0 14px rgba(0,153,255,.12) !important;
+    transition:.22s ease !important;
+}
+
+body.retame-oficial-page .liga-card:hover{
+    background:linear-gradient(180deg,#ffffff,#fbfbfb) !important;
+    border-color:rgba(255,75,92,.95) !important;
+    box-shadow:
+        0 14px 28px rgba(0,0,0,.10),
+        0 0 0 3px rgba(0,153,255,.23),
+        0 0 18px rgba(0,153,255,.16) !important;
+}
+
+body.retame-oficial-page .liga-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:13px !important;
+    padding-bottom:13px;
+    border-bottom:1px solid rgba(17,24,39,.08);
+}
+
+body.retame-oficial-page .liga-title{
+    min-width:0;
+    flex:1;
+}
+
+body.retame-oficial-page .liga-nombre{
+    margin-bottom:6px !important;
+    color:#111827 !important;
+    font-size:16px !important;
+    font-weight:900 !important;
+    line-height:1.3;
+}
+
+body.retame-oficial-page .liga-id{
+    display:inline-flex !important;
+    max-width:100%;
+    padding:5px 9px !important;
+    border-radius:999px !important;
+    background:rgba(24,119,242,.08) !important;
+    color:var(--azul) !important;
+    border:1px solid rgba(24,119,242,.18);
+    font-size:10px !important;
+    font-weight:900 !important;
+    word-break:break-all;
+}
+
+body.retame-oficial-page .liga-estado{
+    padding:6px 9px !important;
+    border-radius:999px !important;
+    font-size:10px !important;
+    font-weight:900 !important;
+    white-space:nowrap;
+}
+
+body.retame-oficial-page .estado-activa{
+    background:rgba(34,197,94,.12) !important;
+    color:#15803d !important;
+    border:1px solid rgba(34,197,94,.24) !important;
+}
+
+body.retame-oficial-page .estado-inscripciones{
+    background:rgba(24,119,242,.12) !important;
+    color:#1d4ed8 !important;
+    border:1px solid rgba(24,119,242,.24) !important;
+}
+
+body.retame-oficial-page .liga-details{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:10px !important;
+    margin-bottom:14px !important;
+}
+
+body.retame-oficial-page .detail-item{
+    min-width:0;
+    font-size:12px !important;
+}
+
+body.retame-oficial-page .detail-label{
+    display:block;
+    margin-bottom:3px !important;
+    color:#6b7280 !important;
+    font-size:10px !important;
+    font-weight:800;
+}
+
+body.retame-oficial-page .detail-value{
+    display:block;
+    color:#374151 !important;
+    font-size:12px !important;
+    font-weight:700 !important;
+    line-height:1.45;
+    word-break:break-word;
+}
+
+body.retame-oficial-page .detail-value span[style]{
+    color:var(--azul) !important;
+    font-weight:900;
+}
+
+body.retame-oficial-page .liga-actions{
+    display:flex;
+    gap:9px !important;
+    margin-top:6px !important;
+}
+
+body.retame-oficial-page .action-button{
+    flex:1;
+    border:none;
+}
+
+body.retame-oficial-page .sugerencia-badge{
+    position:absolute;
+    top:-9px !important;
+    right:12px !important;
+    z-index:3;
+    padding:6px 10px !important;
+    border-radius:999px !important;
+    background:#ffffff !important;
+    color:var(--rojo2) !important;
+    border:2px solid rgba(255,75,92,.30) !important;
+    box-shadow:0 6px 14px rgba(0,0,0,.08),0 0 0 2px rgba(0,153,255,.08) !important;
+    font-size:10px !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .no-results,
+body.retame-oficial-page .no-equipos-compatibles{
+    min-height:180px;
+    margin-top:0 !important;
+    padding:26px !important;
+    border-radius:22px !important;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:rgba(24,119,242,.05) !important;
+    border:2px dashed rgba(0,153,255,.28) !important;
+    color:#4b5563 !important;
+}
+
+body.retame-oficial-page .no-results h3,
+body.retame-oficial-page .no-equipos-compatibles h3{
+    margin:8px 0;
+    color:#111827 !important;
+    font-weight:900;
+}
+
+body.retame-oficial-page .no-results-icon,
+body.retame-oficial-page .no-equipos-icon{
+    margin-bottom:10px !important;
+    font-size:2.2rem !important;
+    opacity:.8 !important;
+}
+
+body.retame-oficial-page .no-results a,
+body.retame-oficial-page .no-equipos-compatibles a{
+    color:var(--azul) !important;
+}
+
+body.retame-oficial-page .equipos-section{
+    margin-top:0 !important;
+}
+
+body.retame-oficial-page .equipos-section > p[style]{
+    color:#6b7280 !important;
+}
+
+body.retame-oficial-page .equipos-grid{
+    display:grid !important;
+    grid-template-columns:repeat(auto-fill,minmax(190px,1fr)) !important;
+    gap:14px !important;
+    margin-top:16px !important;
+}
+
+body.retame-oficial-page .equipo-card{
+    padding:15px !important;
+    border-radius:18px !important;
+    background:linear-gradient(180deg,#ffffff,#fbfbfb) !important;
+    border:2px solid rgba(0,153,255,.22) !important;
+    box-shadow:0 8px 18px rgba(0,0,0,.05);
+    text-align:center;
+}
+
+body.retame-oficial-page .equipo-nombre{
+    margin-bottom:7px !important;
+    color:#111827 !important;
+    font-size:14px;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .equipo-rol{
+    display:inline-flex !important;
+    padding:5px 9px !important;
+    border-radius:999px !important;
+    background:rgba(24,119,242,.09) !important;
+    color:var(--azul) !important;
+    border:1px solid rgba(24,119,242,.16);
+    font-size:10px !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .seleccion-equipo-section{
+    animation:none !important;
+}
+
+body.retame-oficial-page .liga-info-box{
+    margin-bottom:22px !important;
+    padding:18px !important;
+    border-radius:20px !important;
+    background:rgba(24,119,242,.055) !important;
+    border:2px dashed rgba(0,153,255,.25) !important;
+}
+
+body.retame-oficial-page .liga-info-header{
+    display:flex;
+    align-items:center;
+    gap:13px !important;
+    margin-bottom:15px !important;
+}
+
+body.retame-oficial-page .liga-info-icon{
+    width:54px !important;
+    height:54px !important;
+    min-width:54px;
+    border-radius:17px !important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#1877f2,#0ea5e9) !important;
+    color:#ffffff !important;
+    box-shadow:0 9px 18px rgba(24,119,242,.18);
+    font-size:1.5rem !important;
+}
+
+body.retame-oficial-page .liga-info-header h2[style]{
+    color:var(--azul) !important;
+    margin-bottom:5px !important;
+}
+
+body.retame-oficial-page .liga-info-header p[style]{
+    color:#6b7280 !important;
+}
+
+body.retame-oficial-page .seleccion-equipo-section > h3[style]{
+    color:#111827 !important;
+}
+
+body.retame-oficial-page .seleccion-equipo-section > p[style]{
+    color:#6b7280 !important;
+}
+
+body.retame-oficial-page .equipos-compatibles-grid{
+    display:grid !important;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr)) !important;
+    gap:15px !important;
+    margin-top:20px !important;
+}
+
+body.retame-oficial-page .equipo-compatible-card{
+    position:relative;
+    overflow:hidden;
+    padding:0 !important;
+    border-radius:20px !important;
+    background:linear-gradient(180deg,#ffffff,#fbfbfb) !important;
+    border:2px solid rgba(0,153,255,.25) !important;
+    box-shadow:0 9px 20px rgba(0,0,0,.06);
+    cursor:pointer;
+    transition:.22s ease !important;
+}
+
+body.retame-oficial-page .equipo-compatible-card:hover{
+    background:linear-gradient(180deg,#ffffff,#fbfbfb) !important;
+    border-color:rgba(255,75,92,.65) !important;
+    box-shadow:0 12px 24px rgba(0,0,0,.08),0 0 0 2px rgba(0,153,255,.10) !important;
+}
+
+body.retame-oficial-page .equipo-compatible-card.selected{
+    background:#f8fbff !important;
+    border-color:var(--azul-neon-fuerte) !important;
+    box-shadow:var(--sombra-azul) !important;
+}
+
+body.retame-oficial-page .radio-equipo-label{
+    display:block;
+    width:100%;
+    min-height:100%;
+    padding:16px !important;
+    cursor:pointer;
+}
+
+body.retame-oficial-page .equipo-compatible-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:8px;
+    margin-bottom:13px !important;
+    padding-right:30px;
+}
+
+body.retame-oficial-page .equipo-compatible-nombre{
+    color:#111827 !important;
+    font-size:15px !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .equipo-compatible-rol{
+    padding:5px 8px !important;
+    border-radius:999px !important;
+    background:rgba(24,119,242,.09) !important;
+    color:var(--azul) !important;
+    border:1px solid rgba(24,119,242,.16);
+    font-size:10px !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .equipo-compatible-details{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:9px !important;
+    margin-bottom:10px !important;
+}
+
+body.retame-oficial-page .equipo-detail{
+    font-size:11px !important;
+}
+
+body.retame-oficial-page .equipo-detail-label{
+    display:block;
+    margin-bottom:3px !important;
+    color:#6b7280 !important;
+    font-size:10px !important;
+    font-weight:800;
+}
+
+body.retame-oficial-page .equipo-detail-value{
+    display:block;
+    color:#374151 !important;
+    font-size:11px !important;
+    font-weight:700 !important;
+}
+
+body.retame-oficial-page .equipo-detail-value[style],
+body.retame-oficial-page .radio-equipo-label > div[style] span[style]{
+    color:var(--azul) !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .radio-equipo{
+    position:absolute;
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+body.retame-oficial-page .radio-checkmark{
+    position:absolute;
+    top:14px !important;
+    right:14px !important;
+    width:23px !important;
+    height:23px !important;
+    border-radius:50%;
+    border:2px solid rgba(0,153,255,.35) !important;
+    background:#ffffff !important;
+    transition:.22s ease;
+}
+
+body.retame-oficial-page .equipo-compatible-card.selected .radio-checkmark{
+    background:var(--azul) !important;
+    border-color:var(--azul) !important;
+}
+
+body.retame-oficial-page .equipo-compatible-card.selected .radio-checkmark::after{
+    content:"✓";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform:none !important;
+    color:#ffffff !important;
+    font-size:12px !important;
+    font-weight:900 !important;
+}
+
+body.retame-oficial-page .selection-indicator{
+    display:none !important;
+}
+
+body.retame-oficial-page .botones-seleccion{
+    display:flex !important;
+    gap:10px !important;
+    margin-top:22px !important;
+    padding-top:18px !important;
+    border-top:1px solid rgba(17,24,39,.08) !important;
+}
+
+body.retame-oficial-page .btn-cancelar-seleccion{
+    flex:1 !important;
+}
+
+body.retame-oficial-page .btn-confirmar-inscripcion{
+    flex:2 !important;
+}
+
+body.retame-oficial-page.dark-mode .main-content > h1,
+body.retame-oficial-page.dark-mode .card,
+body.retame-oficial-page.dark-mode .search-section,
+body.retame-oficial-page.dark-mode .seleccion-equipo-section,
+body.retame-oficial-page.dark-mode .liga-card,
+body.retame-oficial-page.dark-mode .equipo-card,
+body.retame-oficial-page.dark-mode .equipo-compatible-card{
+    background:#111827 !important;
+    color:#e5e7eb !important;
+    border-color:rgba(255,75,92,.76) !important;
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.28),
+        0 0 0 2px rgba(0,153,255,.22),
+        0 0 18px rgba(0,153,255,.16) !important;
+}
+
+body.retame-oficial-page.dark-mode .main-content > h1,
+body.retame-oficial-page.dark-mode .card h2,
+body.retame-oficial-page.dark-mode .search-header h2,
+body.retame-oficial-page.dark-mode .liga-info-header h2[style]{
+    color:var(--cyan) !important;
+}
+
+body.retame-oficial-page.dark-mode .search-header p[style],
+body.retame-oficial-page.dark-mode .equipos-section > p[style],
+body.retame-oficial-page.dark-mode .liga-info-header p[style],
+body.retame-oficial-page.dark-mode .seleccion-equipo-section > p[style]{
+    color:#cbd5e1 !important;
+}
+
+body.retame-oficial-page.dark-mode .user-info,
+body.retame-oficial-page.dark-mode .liga-info-box{
+    background:rgba(14,165,233,.07) !important;
+    border-color:rgba(77,184,255,.28) !important;
+}
+
+body.retame-oficial-page.dark-mode .info-label,
+body.retame-oficial-page.dark-mode .liga-nombre,
+body.retame-oficial-page.dark-mode .equipo-nombre,
+body.retame-oficial-page.dark-mode .equipo-compatible-nombre,
+body.retame-oficial-page.dark-mode .seleccion-equipo-section > h3[style],
+body.retame-oficial-page.dark-mode .no-results h3,
+body.retame-oficial-page.dark-mode .no-equipos-compatibles h3{
+    color:#f8fafc !important;
+}
+
+body.retame-oficial-page.dark-mode .info-value,
+body.retame-oficial-page.dark-mode .detail-label,
+body.retame-oficial-page.dark-mode .detail-value,
+body.retame-oficial-page.dark-mode .equipo-detail-label,
+body.retame-oficial-page.dark-mode .equipo-detail-value,
+body.retame-oficial-page.dark-mode .no-results,
+body.retame-oficial-page.dark-mode .no-equipos-compatibles{
+    color:#cbd5e1 !important;
+}
+
+body.retame-oficial-page.dark-mode .search-option label,
+body.retame-oficial-page.dark-mode .search-input,
+body.retame-oficial-page.dark-mode .cancel-button,
+body.retame-oficial-page.dark-mode .btn-cancelar-seleccion,
+body.retame-oficial-page.dark-mode .results-count,
+body.retame-oficial-page.dark-mode .sugerencia-badge,
+body.retame-oficial-page.dark-mode .radio-checkmark{
+    background:#0b1220 !important;
+    color:#e5e7eb !important;
+}
+
+body.retame-oficial-page.dark-mode .search-option label,
+body.retame-oficial-page.dark-mode .search-input{
+    border-color:rgba(77,184,255,.32) !important;
+}
+
+body.retame-oficial-page.dark-mode .search-option input[type="radio"]:checked + label{
+    color:var(--cyan) !important;
+    border-color:rgba(0,153,255,.95) !important;
+}
+
+body.retame-oficial-page.dark-mode .search-input::placeholder{
+    color:#94a3b8 !important;
+}
+
+body.retame-oficial-page.dark-mode .liga-header{
+    border-bottom-color:rgba(255,255,255,.08) !important;
+}
+
+body.retame-oficial-page.dark-mode .liga-id,
+body.retame-oficial-page.dark-mode .equipo-rol,
+body.retame-oficial-page.dark-mode .equipo-compatible-rol{
+    background:rgba(14,165,233,.10) !important;
+    color:var(--cyan) !important;
+}
+
+body.retame-oficial-page.dark-mode .estado-inscripciones{
+    color:#93c5fd !important;
+}
+
+body.retame-oficial-page.dark-mode .detail-value span[style],
+body.retame-oficial-page.dark-mode .equipo-detail-value[style],
+body.retame-oficial-page.dark-mode .radio-equipo-label > div[style] span[style]{
+    color:var(--cyan) !important;
+}
+
+body.retame-oficial-page.dark-mode .equipo-compatible-card.selected{
+    background:#0b1220 !important;
+}
+
+body.retame-oficial-page.dark-mode .botones-seleccion{
+    border-top-color:rgba(255,255,255,.08) !important;
+}
+
+body.retame-oficial-page.dark-mode .radio-checkmark{
+    border-color:rgba(77,184,255,.40) !important;
+}
+
+body.retame-oficial-page.dark-mode .equipo-compatible-card.selected .radio-checkmark{
+    background:var(--azul) !important;
+}
+
+@media screen and (max-width:820px){
+    body.retame-oficial-page > .main-content{
+        width:100% !important;
+        max-width:100% !important;
+        padding-top:12px !important;
     }
 
-    body { 
-        display:flex; 
-        min-height:100vh; 
-        background:linear-gradient(135deg,#140f27,#203a43,#1c2a92); 
-        color:#eee; 
-        overflow-x:hidden; 
-        position: relative;
+    body.retame-oficial-page .ligas-container{
+        grid-template-columns:repeat(auto-fill,minmax(250px,1fr)) !important;
+    }
+}
+
+@media screen and (max-width:620px){
+    body.retame-oficial-page .main-content > h1{
+        margin-bottom:16px !important;
+        padding:20px 17px !important;
+        border-radius:24px !important;
+        text-align:center !important;
+        font-size:1.3rem !important;
     }
 
-    /* BURBUJAS DE FONDO */
-    .bg-particles {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
+    body.retame-oficial-page .card,
+    body.retame-oficial-page .search-section,
+    body.retame-oficial-page .seleccion-equipo-section{
+        margin-bottom:18px !important;
+        padding:20px 16px !important;
+        border-radius:24px !important;
     }
 
-    .particle {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-        animation: float 20s infinite linear;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-100vh) rotate(180deg); }
-    }
-
-    /* SIDEBAR */
-    .sidebar { 
-        width:250px; 
-        background:#111820; 
-        padding:20px; 
-        display:flex; 
-        flex-direction:column; 
-        align-items:center; 
-        box-shadow:5px 0 20px rgba(9,5,138,0.7);
-        position:fixed;
-        height:100vh;
-        z-index:1000;
-    }
-
-    .sidebar h2 { 
-        color:#fff; 
-        margin-bottom:20px; 
-        text-align:center;
-        font-size:18px;
-    }
-
-    .sidebar img { 
-        width:90px; 
-        height:90px;
-        margin-bottom:10px; 
-        border-radius:50%;
-        border:3px solid #00ffc6;
-    }
-
-    .menu { 
-        list-style:none; 
-        width:100%; 
-        margin-top:20px;
-    }
-
-    .menu li { 
-        padding:12px; 
-        margin:10px 0; 
-        border-radius:8px; 
-        background:rgba(0,255,198,0.1); 
-        text-align:center; 
-        transition:all 0.3s ease;
-        border:1px solid rgba(0,255,198,0.2);
-    }
-
-    .menu li a { 
-        color:#fff; 
-        text-decoration:none; 
-        font-weight:bold; 
-        display:block; 
-        font-size:14px;
-    }
-
-    .menu li:hover { 
-        background:rgba(244,16,16,0.3); 
-        transform:translateX(5px);
-        border-color:rgba(244,16,16,0.5);
-    }
-
-    /* CONTENIDO PRINCIPAL */
-    .main-content { 
-        flex:1; 
-        padding:40px; 
-        margin-left:250px;
-        min-height:100vh;
-        position: relative;
-        z-index: 1;
-        width: calc(100% - 250px);
-    }
-
-    .main-content h1 {
-        font-size:32px;
-        color:#ffffff;
-        margin-bottom:30px;
-        text-align:center;
-    }
-
-    /* TARJETAS */
-    .card {
-        background:rgba(27,31,39,0.9);
-        padding:30px;
-        border-radius:20px;
-        box-shadow:0 0 30px rgba(0,26,255,0.5);
-        margin-bottom:30px;
-        backdrop-filter:blur(10px);
-        border:1px solid rgba(0,26,255,0.2);
-        animation: fadeInUp 0.5s ease-out;
-    }
-
-    @keyframes fadeInUp {
-        from { opacity:0; transform:translateY(20px); }
-        to { opacity:1; transform:translateY(0); }
-    }
-
-    .card h2 {
-        color:#00ffc6;
-        margin-bottom:25px;
-        font-size:24px;
-        border-bottom:2px solid rgba(0,255,198,0.3);
-        padding-bottom:10px;
-    }
-
-    /* BÚSQUEDA */
-    .search-section {
-        background:rgba(27,31,39,0.9);
-        padding:30px;
-        border-radius:20px;
-        box-shadow:0 0 30px rgba(0,26,255,0.5);
-        margin-bottom:30px;
-        backdrop-filter:blur(10px);
-        border:1px solid rgba(0,26,255,0.2);
-    }
-
-    .search-header {
-        display:flex;
-        align-items:center;
-        gap:15px;
-        margin-bottom:20px;
-    }
-
-    .search-icon {
-        width:50px;
-        height:50px;
-        border-radius:50%;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:1.5rem;
-        background:rgba(0,26,255,0.2);
-        color:#001aff;
-    }
-
-    .search-type {
-        display:flex;
-        gap:15px;
-        margin-bottom:20px;
-    }
-
-    .search-option {
-        flex:1;
-        text-align:center;
-    }
-
-    .search-option input[type="radio"] {
-        display:none;
-    }
-
-    .search-option label {
-        display:block;
-        padding:12px;
-        background:rgba(255,255,255,0.05);
-        border:2px solid rgba(255,255,255,0.1);
-        border-radius:12px;
-        cursor:pointer;
-        transition:all 0.3s ease;
-        font-weight:500;
-        color:#eee;
-    }
-
-    .search-option input[type="radio"]:checked + label {
-        background:rgba(0,26,255,0.3);
-        border-color:#001aff;
-        transform:translateY(-3px);
-    }
-
-    .search-input-group {
-        display:flex;
-        gap:10px;
-        margin-bottom:20px;
-    }
-
-    .search-input {
-        flex:1;
-        padding:15px 20px;
-        background:rgba(255,255,255,0.08);
-        border:2px solid rgba(255,255,255,0.2);
-        border-radius:12px;
-        color:#eee;
-        font-size:1rem;
-        transition:all 0.3s ease;
-    }
-
-    .search-input:focus {
-        outline:none;
-        border-color:#00ffc6;
-        box-shadow:0 0 15px rgba(0,255,198,0.3);
-    }
-
-    .search-button {
-        padding:15px 30px;
-        background:linear-gradient(135deg,#001aff,#0015cc);
-        border:none;
-        border-radius:12px;
-        color:#fff;
-        font-weight:600;
-        cursor:pointer;
-        transition:all 0.3s ease;
-    }
-
-    .search-button:hover {
-        transform:translateY(-3px);
-        box-shadow:0 10px 25px rgba(0,26,255,0.4);
-    }
-
-    .cancel-button {
-        padding:15px 25px;
-        background:rgba(255,255,255,0.1);
-        border:2px solid rgba(255,255,255,0.2);
-        border-radius:12px;
-        color:#fff;
-        font-weight:600;
-        cursor:pointer;
-        transition:all 0.3s ease;
-    }
-
-    .cancel-button:hover {
-        background:rgba(255,0,0,0.2);
-        border-color:#ff0000;
-    }
-
-    /* INFORMACIÓN USUARIO */
-    .user-info {
-        background:rgba(0,255,198,0.05);
-        border-radius:15px;
-        padding:20px;
-        margin-top:20px;
-        border:1px solid rgba(0,255,198,0.2);
-    }
-
-    .info-row {
-        display:flex;
-        align-items:center;
-        gap:15px;
-        margin-bottom:10px;
-    }
-
-    .info-label {
-        color:#00ffc6;
-        font-weight:600;
-        min-width:120px;
-    }
-
-    .info-value {
-        color:#fff;
-    }
-
-    /* LISTA DE LIGAS */
-    .ligas-container {
-        display:flex;
-        flex-direction:column;
-        gap:20px;
-        max-height:600px;
-        overflow-y:auto;
-        padding-right:10px;
-    }
-
-    .ligas-container::-webkit-scrollbar {
-        width:8px;
-    }
-
-    .ligas-container::-webkit-scrollbar-track {
-        background:rgba(255,255,255,0.05);
-        border-radius:10px;
-    }
-
-    .ligas-container::-webkit-scrollbar-thumb {
-        background:#001aff;
-        border-radius:10px;
-    }
-
-    /* TARJETA DE LIGA */
-    .liga-card {
-        background:rgba(255,255,255,0.05);
-        border-radius:15px;
-        padding:25px;
-        border-left:4px solid #001aff;
-        transition:all 0.3s ease;
-        position:relative;
-    }
-
-    .liga-card:hover {
-        background:rgba(255,255,255,0.08);
-        transform:translateX(5px);
-        box-shadow:0 8px 25px rgba(0,0,0,0.2);
-    }
-
-    .liga-header {
-        display:flex;
-        justify-content:space-between;
+    body.retame-oficial-page .search-header{
         align-items:flex-start;
-        margin-bottom:15px;
     }
 
-    .liga-title {
-        flex:1;
+    body.retame-oficial-page .search-type{
+        grid-template-columns:1fr !important;
     }
 
-    .liga-nombre {
-        font-size:1.4rem;
-        font-weight:600;
-        color:#fff;
-        margin-bottom:5px;
+    body.retame-oficial-page .search-input-group,
+    body.retame-oficial-page .liga-actions,
+    body.retame-oficial-page .botones-seleccion{
+        flex-direction:column !important;
     }
 
-    .liga-id {
-        background:rgba(0,26,255,0.1);
-        padding:4px 10px;
-        border-radius:15px;
-        font-size:0.8rem;
-        color:#001aff;
-        display:inline-block;
+    body.retame-oficial-page .search-button,
+    body.retame-oficial-page .cancel-button,
+    body.retame-oficial-page .action-button,
+    body.retame-oficial-page .btn-cancelar-seleccion,
+    body.retame-oficial-page .btn-confirmar-inscripcion{
+        width:100% !important;
+        flex:auto !important;
     }
 
-    .liga-estado {
-        padding:6px 12px;
-        border-radius:20px;
-        font-size:0.85rem;
-        font-weight:600;
+    body.retame-oficial-page .ligas-container{
+        grid-template-columns:1fr !important;
+        max-height:none !important;
+        overflow:visible;
+        padding-right:0 !important;
     }
 
-    .estado-activa {
-        background:rgba(0,255,198,0.1);
-        color:#00ffc6;
-        border:1px solid rgba(0,255,198,0.3);
+    body.retame-oficial-page .liga-details,
+    body.retame-oficial-page .equipo-compatible-details{
+        grid-template-columns:1fr !important;
     }
 
-    .estado-inscripciones {
-        background:rgba(255,193,7,0.1);
-        color:#ffc107;
-        border:1px solid rgba(255,193,7,0.3);
+    body.retame-oficial-page .equipos-grid,
+    body.retame-oficial-page .equipos-compatibles-grid{
+        grid-template-columns:1fr !important;
     }
 
-    .liga-details {
-        display:grid;
-        grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-        gap:15px;
-        margin-bottom:20px;
+    body.retame-oficial-page .info-row{
+        flex-direction:column;
+        gap:3px;
     }
 
-    .detail-item {
-        font-size:0.95rem;
+    body.retame-oficial-page .info-label{
+        min-width:0 !important;
     }
-
-    .detail-label {
-        color:#aaaaaa;
-        display:block;
-        font-size:0.85rem;
-        margin-bottom:4px;
-    }
-
-    .detail-value {
-        color:#fff;
-        font-weight:500;
-    }
-
-    .liga-actions {
-        display:flex;
-        gap:10px;
-        margin-top:15px;
-    }
-
-    .action-button {
-        flex:1;
-        padding:12px;
-        border:none;
-        border-radius:10px;
-        font-weight:600;
-        cursor:pointer;
-        transition:all 0.3s ease;
-        text-align:center;
-    }
-
-    .btn-detalles {
-        background:linear-gradient(135deg,#9d00ff,#7a00cc);
-        color:#fff;
-    }
-
-    .btn-detalles:hover {
-        transform:translateY(-2px);
-        box-shadow:0 5px 15px rgba(157,0,255,0.3);
-    }
-
-    .btn-unirse {
-        background:linear-gradient(135deg,#00ffc6,#00cc9d);
-        color:#000;
-    }
-
-    .btn-unirse:hover {
-        transform:translateY(-2px);
-        box-shadow:0 5px 15px rgba(0,255,198,0.3);
-    }
-
-    /* BADGE DE SUGERENCIA */
-    .sugerencia-badge {
-        position:absolute;
-        top:-10px;
-        right:-10px;
-        background:linear-gradient(135deg,#ff9800,#ff5722);
-        color:white;
-        padding:4px 12px;
-        border-radius:20px;
-        font-size:0.75rem;
-        font-weight:600;
-        box-shadow:0 3px 10px rgba(255,152,0,0.3);
-    }
-
-    /* ALERTAS */
-    .alert {
-        padding:20px;
-        border-radius:12px;
-        margin-bottom:20px;
-        animation:fadeIn 0.5s ease;
-    }
-
-    .alert-success {
-        background:rgba(0,255,198,0.1);
-        border-left:4px solid #00ffc6;
-        color:#00ffc6;
-    }
-
-    .alert-error {
-        background:rgba(255,0,0,0.1);
-        border-left:4px solid #ff0000;
-        color:#ff6b6b;
-    }
-
-    .alert-info {
-        background:rgba(0,100,255,0.1);
-        border-left:4px solid #0064ff;
-        color:#64b5f6;
-    }
-
-    /* NO RESULTADOS */
-    .no-results {
-        text-align:center;
-        padding:50px 20px;
-        color:#aaaaaa;
-    }
-
-    .no-results-icon {
-        font-size:3.5rem;
-        margin-bottom:20px;
-        opacity:0.5;
-    }
-
-    .results-count {
-        color:#00ffc6;
-        font-size:1.1rem;
-        margin-bottom:20px;
-        padding:10px 15px;
-        background:rgba(0,255,198,0.1);
-        border-radius:10px;
-        display:inline-block;
-    }
-
-    /* EQUIPOS USUARIO */
-    .equipos-section {
-        margin-top:40px;
-    }
-
-    .equipos-grid {
-        display:grid;
-        grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
-        gap:15px;
-        margin-top:20px;
-    }
-
-    .equipo-card {
-        background:rgba(255,255,255,0.05);
-        border-radius:12px;
-        padding:15px;
-        text-align:center;
-        border:1px solid rgba(0,255,198,0.2);
-    }
-
-    .equipo-nombre {
-        font-weight:600;
-        color:#fff;
-        margin-bottom:8px;
-    }
-
-    .equipo-rol {
-        font-size:0.85rem;
-        color:#00ffc6;
-        background:rgba(0,255,198,0.1);
-        padding:3px 10px;
-        border-radius:15px;
-        display:inline-block;
-    }
-
-    /* SECCIÓN DE SELECCIÓN DE EQUIPO */
-    .seleccion-equipo-section {
-        background: rgba(27, 31, 39, 0.95);
-        border-radius: 20px;
-        padding: 30px;
-        margin-bottom: 30px;
-        border: 2px solid #00ffc6;
-        box-shadow: 0 0 30px rgba(0, 255, 198, 0.3);
-        animation: slideInRight 0.5s ease-out;
-    }
-    
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    
-    .liga-info-box {
-        background: rgba(0, 26, 255, 0.1);
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 25px;
-        border: 1px solid rgba(0, 26, 255, 0.3);
-    }
-    
-    .liga-info-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 15px;
-    }
-    
-    .liga-info-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #001aff, #0015cc);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        color: white;
-    }
-    
-    .equipos-compatibles-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        margin-top: 25px;
-    }
-    
-    .equipo-compatible-card {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
-        padding: 20px;
-        border: 2px solid rgba(0, 255, 198, 0.2);
-        transition: all 0.3s ease;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .equipo-compatible-card:hover {
-        background: rgba(0, 255, 198, 0.05);
-        transform: translateY(-5px);
-        border-color: #00ffc6;
-        box-shadow: 0 10px 25px rgba(0, 255, 198, 0.2);
-    }
-    
-    .equipo-compatible-card.selected {
-        background: rgba(0, 255, 198, 0.1);
-        border-color: #00ffc6;
-        box-shadow: 0 0 20px rgba(0, 255, 198, 0.3);
-    }
-    
-    .equipo-compatible-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 15px;
-    }
-    
-    .equipo-compatible-nombre {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: #fff;
-    }
-    
-    .equipo-compatible-rol {
-        background: rgba(0, 255, 198, 0.2);
-        color: #00ffc6;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
-    }
-    
-    .equipo-compatible-details {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-    
-    .equipo-detail {
-        font-size: 0.9rem;
-    }
-    
-    .equipo-detail-label {
-        color: #aaaaaa;
-        display: block;
-        font-size: 0.85rem;
-        margin-bottom: 3px;
-    }
-    
-    .equipo-detail-value {
-        color: #fff;
-        font-weight: 500;
-    }
-    
-    .radio-equipo {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-    
-    .radio-equipo-label {
-        display: block;
-        width: 100%;
-        cursor: pointer;
-    }
-    
-    .radio-checkmark {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        background: rgba(255, 255, 255, 0.05);
-        transition: all 0.3s ease;
-    }
-    
-    .equipo-compatible-card.selected .radio-checkmark {
-        background: #00ffc6;
-        border-color: #00ffc6;
-    }
-    
-    .equipo-compatible-card.selected .radio-checkmark::after {
-        content: '✓';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #000;
-        font-weight: bold;
-        font-size: 14px;
-    }
-    
-    .botones-seleccion {
-        display: flex;
-        gap: 15px;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .btn-cancelar-seleccion {
-        padding: 15px 25px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
-        color: #fff;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        flex: 1;
-        text-align: center;
-    }
-    
-    .btn-cancelar-seleccion:hover {
-        background: rgba(255, 0, 0, 0.2);
-        border-color: #ff0000;
-        transform: translateY(-3px);
-    }
-    
-    .btn-confirmar-inscripcion {
-        padding: 15px 25px;
-        background: linear-gradient(135deg, #00ffc6, #00cc9d);
-        border: none;
-        border-radius: 12px;
-        color: #000;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        flex: 2;
-    }
-    
-    .btn-confirmar-inscripcion:hover:not(:disabled) {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0, 255, 198, 0.4);
-    }
-    
-    .btn-confirmar-inscripcion:disabled {
-        background: #666;
-        cursor: not-allowed;
-        opacity: 0.6;
-    }
-    
-    /* SIN EQUIPOS COMPATIBLES */
-    .no-equipos-compatibles {
-        text-align: center;
-        padding: 40px 20px;
-        color: #ff9800;
-        background: rgba(255, 152, 0, 0.1);
-        border-radius: 15px;
-        margin-top: 20px;
-        border: 1px solid rgba(255, 152, 0, 0.3);
-    }
-    
-    .no-equipos-icon {
-        font-size: 3rem;
-        margin-bottom: 15px;
-        opacity: 0.7;
-    }
-    
-    /* INDICADOR DE SELECCIÓN */
-    .selection-indicator {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #00ffc6;
-        color: #000;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 14px;
-        opacity: 0;
-        transform: scale(0.5);
-        transition: all 0.3s ease;
-    }
-    
-    .equipo-compatible-card.selected .selection-indicator {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    /* BOTONES FLOTANTES */
-    .btn-retar {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 90px;
-        height: 90px;
-        background: linear-gradient(135deg,#ff0000,#e00000);
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 16px;
-        font-weight: bold;
-        text-decoration: none;
-        box-shadow: 0 0 20px rgba(255,0,0,0.7);
-        transition: all 0.3s ease;
-        z-index: 999;
-        border: 2px solid rgba(255,255,255,0.3);
-    }
-
-    .btn-ligas {
-        position: fixed;
-        bottom: 130px;
-        right: 20px;
-        width: 90px;
-        height: 90px;
-        background: linear-gradient(135deg,#00aaff,#0066cc);
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 16px;
-        font-weight: bold;
-        text-decoration: none;
-        box-shadow: 0 0 20px rgba(0,100,255,0.7);
-        transition: all 0.3s ease;
-        z-index: 998;
-        border: 2px solid rgba(255,255,255,0.3);
-    }
-
-    .btn-retar:hover, .btn-ligas:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 30px rgba(255,0,0,0.9);
-    }
-
-    .btn-ligas:hover {
-        box-shadow: 0 0 30px rgba(0,100,255,0.9);
-    }
-
-    /* OVERLAY PARA MÓVIL */
-    .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 999;
-    }
-    .overlay.active {
-        display: block;
-    }
-
-    /* RESPONSIVE */
-    @media screen and (max-width: 1024px) {
-        .sidebar { width: 200px; }
-        .main-content { 
-            margin-left: 200px; 
-            width: calc(100% - 200px);
-            padding: 20px; 
-        }
-        .equipos-compatibles-grid {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        }
-    }
-
-    @media screen and (max-width: 768px) {
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            transition: left 0.3s ease;
-            z-index: 1000;
-        }
-        .sidebar.active { left: 0; }
-        .main-content { 
-            margin-left: 0; 
-            width: 100%;
-            padding: 20px; 
-        }
-        
-        .menu-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 0, 0, 0.8);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1001;
-            font-size: 1.2rem;
-        }
-        
-        .liga-details { grid-template-columns: 1fr; }
-        .search-type { flex-direction: column; gap: 10px; }
-        .search-input-group { flex-direction: column; }
-        .equipos-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-        .equipos-compatibles-grid { grid-template-columns: 1fr; }
-        .botones-seleccion { flex-direction: column; }
-        .equipo-compatible-details { grid-template-columns: 1fr; }
-        
-        .btn-retar, .btn-ligas {
-            width: 70px;
-            height: 70px;
-            font-size: 14px;
-            bottom: 15px;
-            right: 15px;
-        }
-        .btn-ligas { bottom: 100px; }
-    }
-
-    @media screen and (max-width: 480px) {
-        .card { padding: 20px; }
-        .main-content { padding: 15px; }
-        .liga-actions { flex-direction: column; }
-        .alert { padding: 15px; }
-        .seleccion-equipo-section { padding: 20px; }
-        .equipo-compatible-card { padding: 15px; }
-    }
-    </style>
+}
+</style>
 <?php if (function_exists('retame_render_global_css')) { retame_render_global_css(); } ?>
 </head>
 <body class="<?php echo function_exists('retame_body_class') ? retame_body_class('retame-oficial-page') : 'retame-oficial-page'; ?>">
