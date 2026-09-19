@@ -1,44 +1,76 @@
-[
-  {
-    "id": 1,
-    "nombre": "Titanes FC",
-    "deporte": "Fútbol",
-    "ciudad": "Comitán",
-    "integrantes": 11
-  },
-  {
-    "id": 2,
-    "nombre": "Halcones",
-    "deporte": "Baloncesto",
-    "ciudad": "Tapachula",
-    "integrantes": 8
-  },
-  {
-    "id": 3,
-    "nombre": "Guerreros",
-    "deporte": "Voleibol",
-    "ciudad": "San Cristóbal",
-    "integrantes": 10
-  },
-  {
-    "id": 4,
-    "nombre": "Leones",
-    "deporte": "Fútbol",
-    "ciudad": "Tuxtla Gutiérrez",
-    "integrantes": 14
-  },
-  {
-    "id": 5,
-    "nombre": "Águilas",
-    "deporte": "Baloncesto",
-    "ciudad": "Comitán",
-    "integrantes": 9
-  },
-  {
-    "id": 6,
-    "nombre": "Panteras",
-    "deporte": "Voleibol",
-    "ciudad": "Tapachula",
-    "integrantes": 12
-  }
-]
+{
+  "users": [
+    {
+      "id": "demo",
+      "password": "demo123",
+      "nombre": "Andri",
+      "apellido": "Palacios",
+      "edad": "22",
+      "estado": "Chiapas",
+      "pais": "México",
+      "codigoPostal": "30000",
+      "telefono": "",
+      "correo": "demo@tajimal.local",
+      "modo": "claro"
+    },
+    {
+      "id": "anaM24",
+      "password": "demo123",
+      "nombre": "Ana",
+      "apellido": "Martínez",
+      "edad": "21",
+      "estado": "Chiapas",
+      "pais": "México",
+      "codigoPostal": "30700",
+      "telefono": "",
+      "correo": "ana@example.com",
+      "modo": "claro"
+    },
+    {
+      "id": "luisG19",
+      "password": "demo123",
+      "nombre": "Luis",
+      "apellido": "Gómez",
+      "edad": "23",
+      "estado": "Chiapas",
+      "pais": "México",
+      "codigoPostal": "29200",
+      "telefono": "",
+      "correo": "luis@example.com",
+      "modo": "claro"
+    }
+  ],
+  "teams": [
+    {"id":"EQ-001","nombre":"Titanes FC","deporte":"Fútbol","ciudad":"Comitán","codigoPostal":"30000","capitanId":"demo","miembros":["demo"],"maxMiembros":11,"tipo":"Fijo"},
+    {"id":"EQ-002","nombre":"Halcones","deporte":"Baloncesto","ciudad":"Tapachula","codigoPostal":"30700","capitanId":"anaM24","miembros":["anaM24"],"maxMiembros":8,"tipo":"Fijo"},
+    {"id":"EQ-003","nombre":"Guerreros","deporte":"Voleibol","ciudad":"San Cristóbal","codigoPostal":"29200","capitanId":"luisG19","miembros":["luisG19"],"maxMiembros":10,"tipo":"Temporal"},
+    {"id":"EQ-004","nombre":"Leones","deporte":"Fútbol","ciudad":"Tuxtla Gutiérrez","codigoPostal":"29000","capitanId":"anaM24","miembros":["anaM24"],"maxMiembros":14,"tipo":"Fijo"}
+  ],
+  "teamRequests": [
+    {"id":"SOL-001","teamId":"EQ-001","userId":"anaM24","estado":"Pendiente","fecha":"2026-09-18T16:30:00"}
+  ],
+  "leagues": [
+    {"id":"LG-001","nombre":"Liga Regional Tajimal","deporte":"Fútbol","codigoPostal":"30000","fechaInicio":"2026-10-05","adminId":"demo","equipos":["EQ-001"],"maxEquipos":8},
+    {"id":"LG-002","nombre":"Copa Costa","deporte":"Baloncesto","codigoPostal":"30700","fechaInicio":"2026-10-12","adminId":"anaM24","equipos":["EQ-002"],"maxEquipos":6}
+  ],
+  "leagueRequests": [],
+  "challenges": [
+    {"id":"RT-001","titulo":"Reta amistosa de fútbol","deporte":"Fútbol","ciudad":"Comitán","codigoPostal":"30000","lugar":"Unidad Deportiva","fecha":"2026-09-27","hora":"17:00","creadorId":"anaM24","equipoCreadorId":"EQ-004","equipoRivalId":null,"estado":"Publicada"},
+    {"id":"RT-002","titulo":"Partido de voleibol","deporte":"Voleibol","ciudad":"San Cristóbal","codigoPostal":"29200","lugar":"Cancha Centro","fecha":"2026-09-29","hora":"18:30","creadorId":"luisG19","equipoCreadorId":"EQ-003","equipoRivalId":null,"estado":"Publicada"}
+  ],
+  "courts": [
+    {"id":"CN-001","nombre":"Unidad Deportiva Municipal","tipo":"Pública","deportes":"Fútbol, Baloncesto","ciudad":"Comitán","estado":"Chiapas","codigoPostal":"30000","direccion":"Zona Centro","horario":"07:00 - 21:00","duenoId":"demo","contacto":""},
+    {"id":"CN-002","nombre":"Cancha Los Halcones","tipo":"Privada","deportes":"Baloncesto","ciudad":"Tapachula","estado":"Chiapas","codigoPostal":"30700","direccion":"Col. Centro","horario":"09:00 - 22:00","duenoId":"anaM24","contacto":""},
+    {"id":"CN-003","nombre":"Deportivo Altos","tipo":"Pública","deportes":"Voleibol, Fútbol","ciudad":"San Cristóbal","estado":"Chiapas","codigoPostal":"29200","direccion":"Barrio El Cerrillo","horario":"08:00 - 20:00","duenoId":"luisG19","contacto":""}
+  ],
+  "agenda": [
+    {"id":"AG-001","userId":"demo","tipo":"Liga","titulo":"Inicio Liga Regional Tajimal","fecha":"2026-10-05","hora":"16:00","lugar":"Unidad Deportiva Municipal","estado":"Programado","resultado":""}
+  ],
+  "notifications": [
+    {"id":"NT-001","userId":"demo","titulo":"Bienvenido a TAJIMAL ALTAMIRANO","descripcion":"Tu panel deportivo está listo. Puedes crear equipos, publicar retas y administrar ligas.","fecha":"2026-09-19T09:00:00","leida":false},
+    {"id":"NT-002","userId":"demo","titulo":"Nueva solicitud de equipo","descripcion":"Ana Martínez quiere unirse a Titanes FC.","fecha":"2026-09-18T16:31:00","leida":false}
+  ],
+  "friends": [
+    {"id":"AM-001","userA":"demo","userB":"anaM24"}
+  ]
+}
