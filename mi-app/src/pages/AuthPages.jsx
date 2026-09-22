@@ -52,8 +52,6 @@ export function LoginPage({ onLogin, onRegister }) {
             <button className={`${primaryButton} w-full`} type="submit">Iniciar sesión</button>
           </form>
           <div className="mt-5 rounded-2xl bg-blue-50 p-4 text-xs text-blue-800">
-            <p className="font-black">Cuenta de demostración</p>
-            <p className="mt-1">Usuario: <b>demo</b> · Contraseña: <b>demo123</b></p>
           </div>
           <button type="button" onClick={onRegister} className={`${secondaryButton} mt-4 w-full`}>Crear una cuenta nueva</button>
         </section>
